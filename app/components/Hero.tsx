@@ -1,0 +1,33 @@
+"use client"; 
+
+import { useState, useEffect } from "react";  
+
+const images = [ 
+    "/bg1.jpg",
+    "/bg2.jpg",
+    "/bg3.jpg",
+];
+
+export default function Hero() {
+
+    const [index, setIndex] = useState(0);
+
+    // 每 4 秒切换
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIndex((i) => (i + 1) % images.length);
+        },4000);
+        
+        return () => clearInterval(timer); // 清理定时器
+    }, []);
+
+    return (
+        <div className="w-full h-72 md:h-96 overflow-hidden rounded-lg shadow-md relative">
+            <img
+            src={images[index]}
+            className="w-full h-[400px] object-cover rounder-xl fade opacity-100"
+            />
+            <div className="absolute inset-0 bg-white/40 dark:bg-black/30"></div>
+        </div>
+    )
+}
